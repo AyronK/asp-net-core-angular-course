@@ -1,10 +1,13 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Vega.Persistence;
 
 namespace Vega
 {
@@ -21,6 +24,9 @@ namespace Vega
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<VegaDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddAutoMapper();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
