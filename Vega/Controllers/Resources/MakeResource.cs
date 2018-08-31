@@ -12,6 +12,6 @@ namespace Vega.Controllers.Resources
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<ModelResource> Models { get; set; } = new Collection<ModelResource>();
+        public ICollection<KeyValuePairResourse> Models { get; set; } = new Collection<KeyValuePairResourse>();
     }
 }

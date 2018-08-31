@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Vega.Controllers.Resources
+namespace Vega.Controllers.Resources.Vehicle
 {
     public class ContactResource
     {

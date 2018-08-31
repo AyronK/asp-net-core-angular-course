@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Vega.Models;
-using Vega.Models.JoinEntities;
+﻿using System.Collections.Generic;
 
-namespace Vega.Controllers.Resources
+namespace Vega.Controllers.Resources.Vehicle
 {
-    public class VehicleResource
+    public class SaveVehicleResource
     {
         public int Id { get; set; }
 

@@ -1,6 +1,7 @@
 using System.Linq;
 using AutoMapper;
 using Vega.Controllers.Resources;
+using Vega.Controllers.Resources.Vehicle;
 using Vega.Models;
 using Vega.Models.JoinEntities;
 
@@ -12,14 +13,21 @@ namespace Vega.Mapping
         {
             // Domain to API Resource
             CreateMap<Make, MakeResource>();
-            CreateMap<Model, ModelResource>();
-            CreateMap<Feature, FeatureResource>();
-            CreateMap<Vehicle, VehicleResource>()
+            CreateMap<Make, KeyValuePairResourse>();
+            CreateMap<Model, KeyValuePairResourse>();
+            CreateMap<Feature, KeyValuePairResourse>();
+            CreateMap<Vehicle, SaveVehicleResource>()
                 .ForMember(vr => vr.Features, opts =>
                     opts.MapFrom(v => v.Features.Select(vf => vf.FeatureId)));
+            CreateMap<Vehicle, VehicleResource>()
+                .ForMember(vr => vr.Features, opts =>
+                    opts.MapFrom(v =>
+                        v.Features.Select(vf => new KeyValuePairResourse {Id = vf.Feature.Id, Name = vf.Feature.Name})))
+                .ForMember(vr => vr.Make, opts =>
+                    opts.MapFrom(v => v.Model.Make));
 
             // API Resource to Domain
-            CreateMap<VehicleResource, Vehicle>()
+            CreateMap<SaveVehicleResource, Vehicle>()
                 .ForMember(v => v.Features, opts => opts.Ignore())
                 .ForMember(v => v.Id, opts => opts.Ignore())
                 .AfterMap((vr, v) =>
@@ -35,7 +43,7 @@ namespace Vega.Mapping
                     // Add new features
                     var addedFeatures = vr.Features
                         .Where(id => v.Features.All(f => f.FeatureId != id))
-                        .Select(id => new VehicleFeature { FeatureId = id })
+                        .Select(id => new VehicleFeature {FeatureId = id})
                         .ToList();
 
                     foreach (var f in addedFeatures)

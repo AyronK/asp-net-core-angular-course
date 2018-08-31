@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Vega.Controllers.Resources;
+using Vega.Controllers.Resources.Vehicle;
 using Vega.Mapping;
 using Vega.Models;
 using Vega.Models.JoinEntities;
@@ -30,7 +31,7 @@ namespace Vega.UnitTests
             // Arrange
             int initialId = 5;
             Vehicle v = new Vehicle() { Id = initialId };
-            VehicleResource vr = new VehicleResource { Id = 0 };
+            SaveVehicleResource vr = new SaveVehicleResource { Id = 0 };
 
             // Act
             mapper.Map(vr, v);
@@ -53,7 +54,7 @@ namespace Vega.UnitTests
                 }
             };
 
-            VehicleResource vr = new VehicleResource
+            SaveVehicleResource vr = new SaveVehicleResource
             {
                 Features = new List<int>() { 1 }
             };
@@ -78,7 +79,7 @@ namespace Vega.UnitTests
                 }
             };
 
-            VehicleResource vr = new VehicleResource
+            SaveVehicleResource vr = new SaveVehicleResource
             {
                 Features = new List<int>() { 1, 2, 3 }
             };
@@ -107,7 +108,7 @@ namespace Vega.UnitTests
             };
 
             // Act
-            VehicleResource vr = mapper.Map<Vehicle, VehicleResource>(v);
+            SaveVehicleResource vr = mapper.Map<Vehicle, SaveVehicleResource>(v);
 
             // Assert
             Assert.AreEqual(v.Features.Count, vr.Features.Count);
