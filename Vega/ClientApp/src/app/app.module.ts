@@ -1,9 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+
 import { AppComponent } from './app.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
+import { MakesService } from './services/makes.service';
+import { FeaturesService } from './services/features.service';
 
 @NgModule({
   declarations: [
@@ -11,11 +15,15 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
     VehicleFormComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    MakesService,
+    FeaturesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
