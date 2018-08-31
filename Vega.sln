@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega", "Vega\Vega.csproj", "{A3BA5F04-0CF3-45BD-96B8-5B309ACB7197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vega", "Vega\Vega.csproj", "{A3BA5F04-0CF3-45BD-96B8-5B309ACB7197}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vega.UnitTests", "Vega.UnitTests\Vega.UnitTests.csproj", "{48399389-853A-4EA3-BCAB-B11B5019D702}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A3BA5F04-0CF3-45BD-96B8-5B309ACB7197}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3BA5F04-0CF3-45BD-96B8-5B309ACB7197}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3BA5F04-0CF3-45BD-96B8-5B309ACB7197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48399389-853A-4EA3-BCAB-B11B5019D702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48399389-853A-4EA3-BCAB-B11B5019D702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48399389-853A-4EA3-BCAB-B11B5019D702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48399389-853A-4EA3-BCAB-B11B5019D702}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

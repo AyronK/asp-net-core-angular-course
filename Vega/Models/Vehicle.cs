@@ -12,12 +12,22 @@ namespace Vega.Models
 
         [Required] public int ModelId { get; set; }
 
-        public ICollection<VehicleFeature> VehicleFeatures { get; set; }
+        public bool IsRegistered { get; set; }
 
-        [Required] [StringLength(255)] public string ContactName { get; set; }
+        public ICollection<VehicleFeature> Features { get; set; } = new List<VehicleFeature>();
 
-        [Required] [StringLength(32)] public string ContactPhone { get; set; }
+        [Required]
+        public Contact Contact { get; set; }
 
-        public DateTime? LastUpdate { get; set; }
+        public DateTime LastUpdate { get; set; }
+    }
+
+    public class Contact
+    {
+        [Required] [StringLength(255)] public string Name { get; set; }
+
+        [Required] [StringLength(32)] public string Phone { get; set; }
+
+        [StringLength(255)] public string Email { get; set; }
     }
 }

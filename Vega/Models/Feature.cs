@@ -10,6 +10,6 @@ namespace Vega.Models
         [Required, StringLength(255)]
         public string Name { get; set; }
 
-        public ICollection<VehicleFeature> VehicleFeatures { get; set; }
+        public ICollection<VehicleFeature> Vehicles { get; set; }
     }
 }

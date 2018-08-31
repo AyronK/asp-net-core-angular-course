@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +39,14 @@
     <Compile Remove="Migrations\20180831110512_InitVehicle.Designer.cs" />
     <Compile Remove="Migrations\20180831110709_InitVehicle.cs" />
     <Compile Remove="Migrations\20180831110709_InitVehicle.Designer.cs" />
+    <Compile Remove="Migrations\20180831111909_UpdateVehicle.cs" />
+    <Compile Remove="Migrations\20180831111909_UpdateVehicle.Designer.cs" />
+    <Compile Remove="Migrations\20180831112244_UpdateVehicle.cs" />
+    <Compile Remove="Migrations\20180831112244_UpdateVehicle.Designer.cs" />
+    <Compile Remove="Migrations\20180831112402_UpdateVehicle2.cs" />
+    <Compile Remove="Migrations\20180831112402_UpdateVehicle2.Designer.cs" />
+    <Compile Remove="Migrations\20180831112549_UpdateVehicle.cs" />
+    <Compile Remove="Migrations\20180831112549_UpdateVehicle.Designer.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
