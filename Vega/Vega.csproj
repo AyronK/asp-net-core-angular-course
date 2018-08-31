@@ -27,6 +27,19 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20180831104602_InitVehicle.cs" />
+    <Compile Remove="Migrations\20180831104602_InitVehicle.Designer.cs" />
+    <Compile Remove="Migrations\20180831105401_InitVehicle.cs" />
+    <Compile Remove="Migrations\20180831105401_InitVehicle.Designer.cs" />
+    <Compile Remove="Migrations\20180831105743_InitVehicle.cs" />
+    <Compile Remove="Migrations\20180831105743_InitVehicle.Designer.cs" />
+    <Compile Remove="Migrations\20180831110512_InitVehicle.cs" />
+    <Compile Remove="Migrations\20180831110512_InitVehicle.Designer.cs" />
+    <Compile Remove="Migrations\20180831110709_InitVehicle.cs" />
+    <Compile Remove="Migrations\20180831110709_InitVehicle.Designer.cs" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
