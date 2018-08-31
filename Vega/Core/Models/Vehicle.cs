@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Vega.Models.JoinEntities;
+using Vega.Core.Models.JoinEntities;
 
-namespace Vega.Models
+namespace Vega.Core.Models
 {
     public class Vehicle
     {

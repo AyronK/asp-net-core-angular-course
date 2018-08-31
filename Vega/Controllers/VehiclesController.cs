@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Vega.Controllers.Resources.Vehicle;
-using Vega.Models;
-using Vega.Persistence;
+using Vega.Core;
+using Vega.Core.Models;
 
 namespace Vega.Controllers
 {
@@ -61,8 +61,8 @@ namespace Vega.Controllers
             await unitOfWork.CompleteAsync();
 
             vehicle = await repository.FindAsync(vehicle.Id);
-
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+
             return CreatedAtAction(nameof(Get), new { id = saveVehicleResource.Id }, result);
         }
 
@@ -84,6 +84,7 @@ namespace Vega.Controllers
 
             await unitOfWork.CompleteAsync();
 
+            vehicle = await repository.FindAsync(vehicle.Id);
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
             return Ok(result);

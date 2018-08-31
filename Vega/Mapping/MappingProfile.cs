@@ -2,8 +2,8 @@ using System.Linq;
 using AutoMapper;
 using Vega.Controllers.Resources;
 using Vega.Controllers.Resources.Vehicle;
-using Vega.Models;
-using Vega.Models.JoinEntities;
+using Vega.Core.Models;
+using Vega.Core.Models.JoinEntities;
 
 namespace Vega.Mapping
 {

@@ -1,15 +1,14 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using Vega.Models.JoinEntities;
 
-namespace Vega.Models
+namespace Vega.Core.Models
 {
-    public class Feature
+    public class Make
     {
         public int Id { get; set; }
         [Required, StringLength(255)]
         public string Name { get; set; }
-
-        public ICollection<VehicleFeature> Vehicles { get; set; }
+        public ICollection<Model> Models { get; set; } = new Collection<Model>();
     }
 }

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Vega.Models;
-using Vega.Models.JoinEntities;
+using Vega.Core.Models;
+using Vega.Core.Models.JoinEntities;
 
 namespace Vega.Persistence
 {
@@ -21,16 +21,6 @@ namespace Vega.Persistence
                 .HasKey(vf => new { vf.VehicleId, vf.FeatureId });
 
             modelBuilder.Entity<Vehicle>().OwnsOne(v => v.Contact);
-
-            //modelBuilder.Entity<VehicleFeature>()
-            //    .HasOne(vf => vf.Vehicle)
-            //    .WithMany(v => v.VehicleFeatures)
-            //    .HasForeignKey(vf => vf.VehicleId);
-
-            //modelBuilder.Entity<VehicleFeature>()
-            //    .HasOne(vf => vf.Feature)
-            //    .WithMany(f => f.VehicleFeatures)
-            //    .HasForeignKey(vf => vf.FeatureId);
         }
     }
 }

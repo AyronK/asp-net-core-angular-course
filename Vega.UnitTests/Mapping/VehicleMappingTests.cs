@@ -2,11 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Vega.Controllers.Resources;
 using Vega.Controllers.Resources.Vehicle;
+using Vega.Core.Models;
+using Vega.Core.Models.JoinEntities;
 using Vega.Mapping;
-using Vega.Models;
-using Vega.Models.JoinEntities;
 
 namespace Vega.UnitTests
 {

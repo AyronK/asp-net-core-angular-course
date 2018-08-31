@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Vega.Models;
+using Vega.Core;
+using Vega.Core.Models;
 
 namespace Vega.Persistence
 {
@@ -46,14 +47,5 @@ namespace Vega.Persistence
                 .Include(v => v.Model)
                 .ThenInclude(vm => vm.Make);
         }
-
-        //public Task<IEnumerable<Vehicle>> GetAsync()
-        //{
-        //    return await dbContext.Vehicles
-        //        .Include(v => v.Features)
-        //        .ThenInclude(vf => vf.Feature)
-        //        .Include(v => v.Model)
-        //        .ThenInclude(vm => vm.Make).ToAsyncEnumerable();
-        //}
     }
 }
