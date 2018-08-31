@@ -24,28 +24,29 @@ namespace Vega.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var vehicles = dbContext.Vehicles
-                .Include(v => v.Model)
-                .ThenInclude(m => m.Make)
-                .Include(v => v.Contact)
-                .Include(v => v.Features);
+            var vehicles = await dbContext.Vehicles
+                .Include(v => v.Features).ToListAsync();
 
-            return Ok(vehicles);
+            var result = vehicles.Select(mapper.Map<Vehicle, VehicleResource>);
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var vehicle = dbContext.Vehicles
-                .Include(v => v.Model)
-                .ThenInclude(m => m.Make)
-                .Include(v => v.Contact)
+            var vehicle = await dbContext.Vehicles
                 .Include(v => v.Features)
-                .SingleOrDefault(v => v.Id == id);
+                .SingleOrDefaultAsync(v => v.Id == id);
 
-            return vehicle != null ? (IActionResult)Ok(vehicle) : NotFound();
+            if (vehicle == null)
+                return NotFound();
+
+            var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+
+            return Ok(result);
         }
 
         [HttpPost]
@@ -69,9 +70,9 @@ namespace Vega.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] VehicleResource vehicleResource)
         {
-            var vehicle = dbContext.Vehicles
+            var vehicle = await dbContext.Vehicles
                 .Include(v=>v.Features)
-                .SingleOrDefault(v => v.Id == id);
+                .SingleOrDefaultAsync(v => v.Id == id);
 
             if (vehicle == null)
                 return NotFound();
@@ -97,10 +98,18 @@ namespace Vega.Controllers
                 ModelState.AddModelError(nameof(vehicleResource.Features), "At least one feature is required");
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            return Ok();
+            var vehicle = await dbContext.Vehicles.FindAsync(id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            dbContext.Vehicles.Remove(vehicle);
+            await dbContext.SaveChangesAsync();
+
+            return Ok(id);
         }
     }
 }
