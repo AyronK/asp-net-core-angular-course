@@ -1,3 +1,4 @@
+import { VehicleService } from './services/vehicle.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -6,8 +7,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
-import { MakesService } from './services/makes.service';
-import { FeaturesService } from './services/features.service';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { FeaturesService } from './services/features.service';
     HttpClientModule,
   ],
   providers: [
-    MakesService,
-    FeaturesService
+    VehicleService
   ],
   bootstrap: [AppComponent]
 })
