@@ -14,7 +14,8 @@ export class VehicleFormComponent implements OnInit {
 
   vehicle: any = {
     features: [],
-    contact: {}
+    contact: {},
+    isRegistered: "false"
   };
 
   constructor(private vehicleService: VehicleService) {
@@ -46,8 +47,10 @@ export class VehicleFormComponent implements OnInit {
         alert("Vehicle added");
         this.vehicle = {
           features: [],
-          contact: {}
+          contact: {},
+          isRegistered: "false"
         };
+        form.reset();
       });
     } else {
       alert("form not valid");

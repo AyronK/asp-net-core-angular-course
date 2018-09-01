@@ -1,6 +1,7 @@
 <h1>New Vehicle</h1>
 {{vehicle | json}}
-{{form.valid}}
+{{form.valid | json}}
+{{make | json}}
 <form #form="ngForm">
   <div class="form-group">
     <label for="make">Make</label>
@@ -10,14 +11,17 @@
     </select>
   </div>
   <div class="form-group">
-    <label for="model">Model</label>
-    <select id="model" class="form-control" [(ngModel)]="vehicle.modelId" name="modelId">
+    <label for="model">Model *</label>
+    <select id="model" #modelId="ngModel" class="form-control" [(ngModel)]="vehicle.modelId" name="modelId" required>
       <option value="" disabled>{{ vehicle.make ? 'Select model' : 'Select make first' }}</option>
       <option *ngFor="let model of models" [value]="model.id">{{model.name}}</option>
     </select>
+    <div class="alert alert-danger" *ngIf="modelId.touched && !modelId.valid">
+      Model is required.
+    </div>
   </div>
   <hr>
-  <h5>Is this vehicle rehistered?</h5>
+  <h5>Is this vehicle registered?</h5>
   <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="isRegistered" id="registered" value="true" [(ngModel)]="vehicle.isRegistered">
     <label class="form-check-label" for="registered">Yes</label>
@@ -29,22 +33,34 @@
   <hr>
   <h5>Features</h5>
   <div class="form-check form-check-inline" *ngFor="let feature of features">
-    <input class="form-check-input" type="checkbox" [id]="'feature' + feature.id" [value]="feature.id" name="features" (change)="onFeatureToggle(feature.id, $event)">
+    <input class="form-check-input" type="checkbox" [id]="'feature' + feature.id" [value]="feature.id" name="features"
+      (change)="onFeatureToggle(feature.id, $event)">
     <label class="form-check-label" [for]="'feature' + feature.id">{{ feature.name }}</label>
   </div>
   <hr>
   <h5>Contact</h5>
   <div class="form-group">
-    <label for="contactName">Name</label>
-    <input id="contactName" type="text" class="form-control" [(ngModel)]="vehicle.contact.name" name="contactName">
+    <label for="contactName">Name *</label>
+    <input id="contactName" #contactName="ngModel" type="text" class="form-control" [(ngModel)]="vehicle.contact.name"
+      name="contactName" required>
+    <div class="alert alert-danger" *ngIf="contactName.touched && !contactName.valid">
+      Name is required.
+    </div>
   </div>
   <div class="form-group">
-    <label for="contactPhone">Phone</label>
-    <input id="contactPhone" type="text" class="form-control" [(ngModel)]="vehicle.contact.phone" name="contactPhone">
+    <label for="contactPhone">Phone *</label>
+    <input id="contactPhone" #contactPhone="ngModel" type="text" class="form-control" [(ngModel)]="vehicle.contact.phone"
+      name="contactPhone" required>
+    <div class="alert alert-danger" *ngIf="contactPhone.touched && !contactPhone.valid">
+      Phone is required.
+    </div>
   </div>
   <div class="form-group">
     <label for="contectEmail">Email</label>
     <input id="contectEmail" type="text" class="form-control" [(ngModel)]="vehicle.contact.email" name="contectEmail">
   </div>
-  <button class="btn btn-primary" (click)="submit(form)">Save</button>
+  <button class="btn btn-primary" (click)="submit(form)" [disabled]="!form.valid">Save</button>
+  <div class="alert alert-warning" *ngIf="!form.valid">
+    Fill required fields.
+  </div>
 </form>
