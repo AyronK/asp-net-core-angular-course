@@ -1,5 +1,5 @@
 import { ReactiveFormBaseComponent } from './../reactive-form-base/reactive-form-base.component';
-import { CustomValidators } from './../../utils/CustomValidators';
+import { CustomValidators } from '../../utils/custom-validators';
 import { element } from 'protractor';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { VehicleService } from './../../services/vehicle.service';
@@ -63,7 +63,7 @@ export class VehicleReactiveFormComponent extends ReactiveFormBaseComponent {
   }
 
   onMakeChange() {
-    delete this.form.value.modelId;
+    this.form.controls.modelId.patchValue(null);
     const selectedMake = this.makes.find((m) => m.id == this.form.value.makeId);
     this.models = selectedMake ? selectedMake.models : [];
     this.form.updateValueAndValidity();
