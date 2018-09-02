@@ -1,0 +1,72 @@
+<h1>New Vehicle</h1>
+{{vehicleForm.value | json}}
+<form [formGroup]="vehicleForm" (submit)="submit(vehicleForm)">
+  <div class="form-group">
+    <label for="make">Make</label>
+    <select id="make" class="form-control" (change)="onMakeChange()" name="makeId" formControlName="makeId">
+      <option value="" disabled>Select make</option>
+      <option *ngFor="let make of makes" [value]="make.id">{{make.name}}</option>
+    </select>
+    <!-- {{vehicleForm.get('makeId').errors| json}} -->
+    <div class="alert alert-danger">
+      Make is required.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="model">Model *</label>
+    <select id="model" class="form-control" name="modelId" required formControlName="modelId">
+      <option value="" disabled>{{ vehicle.make ? 'Select model' : 'Select make first' }}</option>
+      <option *ngFor="let model of models" [value]="model.id">{{model.name}}</option>
+    </select>
+    <div class="alert alert-danger">
+      Model is required.
+    </div>
+  </div>
+  <hr>
+  <h5>Is this vehicle registered?</h5>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="isRegistered" id="registered" value="true" formControlName="isRegistered"
+      [checked]="vehicleForm.get('isRegistered')">
+    <label class="form-check-label" for="registered">Yes</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="isRegistered" id="notregistered" value="false" formControlName="isRegistered"
+      [checked]="vehicleForm.get('isRegistered')">
+    <label class="form-check-label" for="notregistered">No</label>
+  </div>
+  <hr>
+  <h5>Features</h5>
+  <div class="form-group" formGroupName="features">
+    <div class="form-check form-check-inline" *ngFor="let feature of vehicleForm.get('features')['controls'] | propertiesArray">
+      <input class="form-check-input" type="checkbox" [id]="'feature' + feature" [value]="feature.id" [name]="feature"
+        [formControlName]="feature">
+      <label class="form-check-label" [for]="'feature' + feature">{{ feature }}</label>
+    </div>
+  </div>
+  <hr>
+  <h5>Contact</h5>
+  <div class="form-group" formGroupName="contact">
+    <div class="form-group">
+      <label for="contactName">Name *</label>
+      <input id="contactName" type="text" class="form-control" name="contactName" formControlName="name">
+      <div class="alert alert-danger">
+        Name is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactPhone">Phone *</label>
+      <input id="contactPhone" type="text" class="form-control" name="contactPhone"  formControlName="phone">
+      <div class="alert alert-danger">
+        Phone is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contectEmail">Email</label>
+      <input id="contectEmail" type="text" class="form-control" name="contectEmail" formControlName="email">
+    </div>
+  </div>
+  <button class="btn btn-primary">Save</button>
+  <div class="alert alert-warning">
+    Fill required fields.
+  </div>
+</form>
