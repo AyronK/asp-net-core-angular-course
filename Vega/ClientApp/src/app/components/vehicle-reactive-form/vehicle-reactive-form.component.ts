@@ -1,6 +1,7 @@
+import { ReactiveFormBaseComponent } from './../reactive-form-base/reactive-form-base.component';
 import { CustomValidators } from './../../utils/CustomValidators';
 import { element } from 'protractor';
-import { FormControl, FormGroup, Validators, FormArray, FormBuilder, ValidationErrors } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { VehicleService } from './../../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,68 +10,77 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './vehicle-reactive-form.component.html',
   styleUrls: ['./vehicle-reactive-form.component.scss']
 })
-export class VehicleReactiveFormComponent implements OnInit {
+
+export class VehicleReactiveFormComponent extends ReactiveFormBaseComponent {
   makes: any[];
   models: any[];
-  features: any[] = [];
+  features: any[];
 
-  vehicleForm: FormGroup;
+  private get selectedFeatures() {
+    return this.form.value.features
+      .map((value, index) => value ? this.features[index].id : null)
+      .filter(value => value !== null);
+  }
 
-  constructor(private vehicleService: VehicleService, private formBuilder: FormBuilder) {
+  constructor(private vehicleService: VehicleService) {
+    super();
+
     this.vehicleService.getMakes().subscribe((resp) => this.makes = resp);
     this.vehicleService.getFeatures().subscribe((resp) => {
       this.features = resp;
+      const featuresControls = this.features.map(f => new FormControl(false));
 
-      let featuresConfig = {};
-
-      for (const feature in this.features) {
-        if (this.features.hasOwnProperty(feature)) {
-          const element = this.features[feature];
-          featuresConfig[element.id] = new FormControl();
-        }
-      }
-
-      this.vehicleForm.setControl("features", new FormArray(this.features.map(f => new FormControl(false)), CustomValidators.atLeastOneInArraySelected));
-      console.log(this.vehicleForm);
+      this.form = new FormGroup({
+        makeId: new FormControl(
+          null,
+          Validators.required),
+        modelId: new FormControl(
+          null,
+          Validators.required),
+        isRegistered: new FormControl(false),
+        features: new FormArray(
+          featuresControls,
+          CustomValidators.atLeastOneInArraySelected),
+        contact: new FormGroup({
+          name: new FormControl(
+            null,
+            Validators.required),
+          phone: new FormControl(
+            null,
+            [
+              Validators.required,
+              Validators.pattern("[0-9]{9}")
+            ]),
+          email: new FormControl(
+            null,
+            Validators.email)
+        })
+      });
     });
   }
 
   ngOnInit() {
-
-    this.vehicleForm = new FormGroup({
-      makeId: new FormControl(null, [Validators.required]),
-      modelId: new FormControl(null, [Validators.required]),
-      isRegistered: new FormControl(false),
-      features: new FormArray([]),
-      contact: new FormGroup({
-        name: new FormControl(null, [Validators.required]),
-        phone: new FormControl(null, [Validators.required]),
-        email: new FormControl()
-      })
-    });
   }
 
   onMakeChange() {
-    delete this.vehicleForm.value.modelId;
-    const selectedMake = this.makes.find((m) => m.id == this.vehicleForm.value.makeId);
+    delete this.form.value.modelId;
+    const selectedMake = this.makes.find((m) => m.id == this.form.value.makeId);
     this.models = selectedMake ? selectedMake.models : [];
-    this.vehicleForm.updateValueAndValidity();
+    this.form.updateValueAndValidity();
   }
 
   submit() {
-    if (this.vehicleForm.valid) {
-      const selectedFeatures = this.vehicleForm.value.features
-        .map((v, i) => v ? this.features[i].id : null)
-        .filter(v => v !== null);
-      const vehicle = { ...this.vehicleForm.value };
-      vehicle.features = selectedFeatures;
+    if (this.form.valid) {
+
+      const vehicle = { ...this.form.value };
+      vehicle.features = this.selectedFeatures;
 
       this.vehicleService.addVehicle(vehicle).subscribe((resp) => {
         alert("Vehicle added");
-        this.vehicleForm.reset();
+        this.form.reset();
       });
     } else {
-      alert("form not valid");
+      this.markFormGroupTouched(this.form);
     }
   }
 
